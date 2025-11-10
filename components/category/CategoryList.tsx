@@ -16,7 +16,7 @@ export default function CategoryList() {
       {categories.map((category) => (
         <div
           key={category.name}
-          className="flex items-center cursor-pointer p-2 gap-3"
+          className="flex items-center cursor-pointer p-2 gap-3  text-sm"
         >
           <span>{category.name}</span>
           <span className="text-gray-400">({category.count})</span>

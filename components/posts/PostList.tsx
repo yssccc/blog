@@ -6,6 +6,7 @@ interface PostData {
   content: string;
   date: string;
   thumbnail: string;
+  categories?: string[];
 }
 
 interface PostListProps {
@@ -22,6 +23,7 @@ export default function PostList({ posts }: PostListProps) {
           content={post.content}
           date={post.date}
           thumbnail={post.thumbnail}
+          categories={post.categories}
         />
       ))}
     </div>
