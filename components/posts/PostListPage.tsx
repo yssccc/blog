@@ -1,4 +1,8 @@
+'use client';
+
+import { useState } from 'react';
 import CategoryList from '../category/CategoryList';
+import Pagination from './Pagination';
 import PostList from './PostList';
 
 const dummyPosts = [
@@ -31,13 +35,50 @@ const dummyPosts = [
     thumbnail: '/sample3.png',
     categories: ['Nest.js', '클러스터링'],
   },
+  {
+    id: '4',
+    title:
+      '효율적인 WebSocket 서버 구축하기 in Nest.js: 클러스터링, 로드밸런싱 그리고 스케일링을 고려한 고가용성 실시간 통신 시스템 설계',
+    content:
+      '고가용성과 확장성을 중점으로 한 Nest.js 기반 WebSocket 서버 아키텍처 설계 방법을 소개합니다. 클러스터링과 로드밸런싱 기법, 트래픽 분산, 장애 조치 전략 등을 포함하여 대규모 실시간 통신 문제를 해결하는 기술적 접근 방법을 다룹니다.고가용성과 확장성을 중점으로 한 Nest.js 기반 WebSocket 서버 아키텍처 설계 방법을 소개합니다. 클러스터링과 로드밸런싱 기법, 트래픽 분산, 장애 조치 전략 등을 포함하여 대규모 실시간 통신 문제를 해결하는 기술적 접근 방법을 다룹니다.',
+    date: '2025.11.09',
+    thumbnail: '/sample3.png',
+    categories: ['Nest.js', '클러스터링'],
+  },
+  {
+    id: '5',
+    title:
+      '효율적인 WebSocket 서버 구축하기 in Nest.js: 클러스터링, 로드밸런싱 그리고 스케일링을 고려한 고가용성 실시간 통신 시스템 설계',
+    content:
+      '고가용성과 확장성을 중점으로 한 Nest.js 기반 WebSocket 서버 아키텍처 설계 방법을 소개합니다. 클러스터링과 로드밸런싱 기법, 트래픽 분산, 장애 조치 전략 등을 포함하여 대규모 실시간 통신 문제를 해결하는 기술적 접근 방법을 다룹니다.고가용성과 확장성을 중점으로 한 Nest.js 기반 WebSocket 서버 아키텍처 설계 방법을 소개합니다. 클러스터링과 로드밸런싱 기법, 트래픽 분산, 장애 조치 전략 등을 포함하여 대규모 실시간 통신 문제를 해결하는 기술적 접근 방법을 다룹니다.',
+    date: '2025.11.09',
+    thumbnail: '/sample3.png',
+    categories: ['Nest.js', '클러스터링'],
+  },
 ];
 
 export default function PostListPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 3;
+  const totalPages = Math.ceil(dummyPosts.length / postsPerPage);
+
+  const pagedPosts = dummyPosts.slice(
+    (currentPage - 1) * postsPerPage,
+    currentPage * postsPerPage,
+  );
   return (
-    <div className="flex justify-center gap-25">
-      <PostList posts={dummyPosts} />
-      <CategoryList />
+    <div className="w-full flex justify-center" style={{ paddingTop: '70px' }}>
+      <div className="w-[1050px] mx-auto flex justify-between px-[195px]">
+        <div className="mx-auto flex-col">
+          <PostList posts={pagedPosts} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+        <CategoryList />
+      </div>
     </div>
   );
 }

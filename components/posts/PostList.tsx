@@ -15,7 +15,7 @@ interface PostListProps {
 
 export default function PostList({ posts }: PostListProps) {
   return (
-    <div className="flex flex-col space-y-4 gap-10">
+    <div className="flex flex-col space-y-4 gap-10 min-h-[600px]">
       {posts.map((post) => (
         <PostItem
           key={post.id}
