@@ -1,3 +1,4 @@
+import CategoryList from '../category/CategoryList';
 import PostList from './PostList';
 
 const dummyPosts = [
@@ -31,8 +32,9 @@ const dummyPosts = [
 
 export default function PostListPage() {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex justify-center gap-25">
       <PostList posts={dummyPosts} />
+      <CategoryList />
     </div>
   );
 }
