@@ -14,6 +14,7 @@ const dummyPosts = [
     date: '2025.11.10',
     thumbnail: '/sample.jpeg',
     categories: ['FE'],
+    slug: 'example-post',
   },
   {
     id: '2',
@@ -24,6 +25,7 @@ const dummyPosts = [
     date: '2025.11.09',
     thumbnail: '/sample2.JPG',
     categories: ['Nest.js', 'WebSocket'],
+    slug: 'example-post',
   },
   {
     id: '3',
@@ -34,6 +36,7 @@ const dummyPosts = [
     date: '2025.11.09',
     thumbnail: '/sample2.JPG',
     categories: ['Nest.js', '클러스터링'],
+    slug: 'example-post',
   },
   {
     id: '4',
@@ -44,6 +47,7 @@ const dummyPosts = [
     date: '2025.11.09',
     thumbnail: '/sample2.JPG',
     categories: ['Nest.js', '클러스터링'],
+    slug: 'example-post',
   },
   {
     id: '5',
@@ -54,6 +58,7 @@ const dummyPosts = [
     date: '2025.11.09',
     thumbnail: '/sample2.JPG',
     categories: ['Nest.js', '클러스터링'],
+    slug: 'example-post',
   },
 ];
 

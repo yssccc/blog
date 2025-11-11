@@ -1,6 +1,7 @@
 import PostItem from './PostItem';
 
 interface PostData {
+  slug: string;
   id: string;
   title: string;
   content: string;
@@ -19,6 +20,7 @@ export default function PostList({ posts }: PostListProps) {
       {posts.map((post) => (
         <PostItem
           key={post.id}
+          slug={post.slug}
           title={post.title}
           content={post.content}
           date={post.date}
