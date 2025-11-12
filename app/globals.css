@@ -41,3 +41,9 @@ body {
 @theme {
   --color-main: #f0980b;
 }
+@layer utilities {
+  pre [data-highlighted-line] {
+    background-color: rgba(240, 152, 11, 0.15);
+    border-left: 3px solid #f0980b;
+  }
+}
