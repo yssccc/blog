@@ -1,5 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
 interface Category {
   name: string;
   count: number;
@@ -7,31 +10,40 @@ interface Category {
 
 interface CategoryListProps {
   categories: Category[];
-  selectedCategory: string;
-  onSelect: (category: string) => void;
+  totalPostCount: number;
 }
 
 export default function CategoryList({
   categories,
-  selectedCategory,
-  onSelect,
+  totalPostCount,
 }: CategoryListProps) {
+  const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category');
+
   return (
-    <div className="flex flex-col space-y-2 min-w-30 gap-1">
+    <div className="flex flex-col space-y-1 gap-1 w-30">
+      <Link
+        href="/"
+        className={`flex items-center p-2 gap-3 text-sm transition cursor-pointer
+          ${!currentCategory ? 'text-main font-semibold' : ''}
+        `}
+      >
+        <span>전체보기</span>
+        <span className="text-gray-400">({totalPostCount})</span>
+      </Link>
+
       {categories.map((category) => (
-        <button
+        <Link
           key={category.name}
-          onClick={() => onSelect(category.name)}
-          className={`flex items-center p-2 gap-3 text-sm transition 
+          href={`/?category=${encodeURIComponent(category.name)}`}
+          className={`flex items-center p-2 gap-3 text-sm transition cursor-pointer
             ${
-              selectedCategory === category.name
-                ? 'text-main font-semibold'
-                : ''
+              currentCategory === category.name ? 'text-main font-semibold' : ''
             }`}
         >
           <span>{category.name}</span>
           <span className="text-gray-400">({category.count})</span>
-        </button>
+        </Link>
       ))}
     </div>
   );

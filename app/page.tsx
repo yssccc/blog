@@ -5,5 +5,11 @@ export default function Home() {
   const posts = getAllPosts();
   const categories = getAllCategories();
 
-  return <PostListPage posts={posts} categories={categories} />;
+  return (
+    <PostListPage
+      posts={posts}
+      categories={categories}
+      totalPostCount={posts.length}
+    />
+  );
 }

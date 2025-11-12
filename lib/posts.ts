@@ -33,13 +33,8 @@ export function getAllCategories() {
     });
   });
 
-  const categories = [
-    { name: '전체보기', count: posts.length },
-    ...Object.entries(categoryCountMap).map(([name, count]) => ({
-      name,
-      count,
-    })),
-  ];
-
-  return categories;
+  return Object.entries(categoryCountMap).map(([name, count]) => ({
+    name,
+    count,
+  }));
 }
