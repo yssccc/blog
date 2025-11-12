@@ -6,7 +6,7 @@ interface PostData {
   title: string;
   content: string;
   date: string;
-  thumbnail: string;
+  thumbnail?: string;
   categories?: string[];
 }
 

@@ -6,7 +6,7 @@ interface PostItemProps {
   title: string;
   content: string;
   date: string;
-  thumbnail: string;
+  thumbnail?: string;
   categories?: string[];
 }
 
@@ -42,12 +42,14 @@ export default function PostItem({
           </div>
         </div>
         <div className="relative w-[220px] aspect-220/147 rounded-[15px] overflow-hidden">
-          <Image
-            src={thumbnail}
-            alt={title}
-            fill
-            style={{ objectFit: 'cover' }}
-          />
+          {thumbnail && (
+            <Image
+              src={thumbnail}
+              alt={title}
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          )}
         </div>
       </div>{' '}
     </Link>
