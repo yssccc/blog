@@ -34,7 +34,7 @@ export default async function PostPage({
   const headings = await getHeadingsFromMDX(content);
 
   return (
-    <div className="relative flex justify-center py-32 mb-70">
+    <div className="relative flex justify-center py-32 mb-100">
       <article className="prose prose-lg w-full max-w-[750px] px-6">
         <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
         <div className="flex items-center mb-6 gap-3">
