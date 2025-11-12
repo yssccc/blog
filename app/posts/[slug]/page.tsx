@@ -6,6 +6,7 @@ import { mdxOptions } from '@/lib/mdxOptions';
 import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import TOC from '@/components/posts/TOC';
 import Image from 'next/image';
+import Callout from '@/components/posts/Callout';
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), 'app', 'posts');
@@ -32,6 +33,9 @@ export default async function PostPage({
   const source = await fs.promises.readFile(postPath, 'utf8');
   const { content, data } = matter(source);
   const headings = await getHeadingsFromMDX(content);
+  const components = {
+    Callout,
+  };
 
   return (
     <div className="relative flex justify-center py-32 mb-100">
@@ -63,7 +67,11 @@ export default async function PostPage({
             />
           </div>
         )}
-        <MDXRemote source={content} options={mdxOptions} />
+        <MDXRemote
+          source={content}
+          options={mdxOptions}
+          components={components}
+        />
       </article>
       <aside
         className="hidden lg:block w-[220px] h-fit"
