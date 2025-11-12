@@ -1,13 +1,14 @@
 import type { MDXRemoteProps } from 'next-mdx-remote/rsc';
 import type { Pluggable } from 'unified';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export const mdxOptions: MDXRemoteProps['options'] = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkBreaks],
     rehypePlugins: [
       [rehypePrettyCode, { theme: 'one-dark-pro', keepBackground: true }],
       rehypeSlug,
