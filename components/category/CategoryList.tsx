@@ -1,26 +1,37 @@
+'use client';
+
 interface Category {
   name: string;
   count: number;
 }
 
-const categories: Category[] = [
-  { name: '전체보기', count: 150 },
-  { name: 'JavaScript', count: 2 },
-  { name: 'FE', count: 4 },
-  { name: 'WebSocket', count: 1 },
-];
+interface CategoryListProps {
+  categories: Category[];
+  selectedCategory: string;
+  onSelect: (category: string) => void;
+}
 
-export default function CategoryList() {
+export default function CategoryList({
+  categories,
+  selectedCategory,
+  onSelect,
+}: CategoryListProps) {
   return (
     <div className="flex flex-col space-y-2 min-w-30 gap-1">
       {categories.map((category) => (
-        <div
+        <button
           key={category.name}
-          className="flex items-center cursor-pointer p-2 gap-3  text-sm"
+          onClick={() => onSelect(category.name)}
+          className={`flex items-center p-2 gap-3 text-sm transition 
+            ${
+              selectedCategory === category.name
+                ? 'text-main font-semibold'
+                : ''
+            }`}
         >
           <span>{category.name}</span>
           <span className="text-gray-400">({category.count})</span>
-        </div>
+        </button>
       ))}
     </div>
   );

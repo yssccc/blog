@@ -33,8 +33,7 @@ export default function PostItem({
             {categories.map((category) => (
               <span
                 key={category}
-                style={{ padding: '0 8px', color: '#F0980B' }}
-                className="flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-gray-700 text-xs font-medium rounded-[15px]"
+                className="px-2 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-xs font-medium rounded-[15px]"
               >
                 {category}
               </span>

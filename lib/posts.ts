@@ -22,3 +22,24 @@ export function getAllPosts() {
     };
   });
 }
+
+export function getAllCategories() {
+  const posts = getAllPosts();
+  const categoryCountMap: Record<string, number> = {};
+
+  posts.forEach((post) => {
+    post.categories.forEach((category: string) => {
+      categoryCountMap[category] = (categoryCountMap[category] || 0) + 1;
+    });
+  });
+
+  const categories = [
+    { name: '전체보기', count: posts.length },
+    ...Object.entries(categoryCountMap).map(([name, count]) => ({
+      name,
+      count,
+    })),
+  ];
+
+  return categories;
+}
