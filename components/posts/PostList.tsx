@@ -1,14 +1,5 @@
+import { PostData } from '@/types/post';
 import PostItem from './PostItem';
-
-interface PostData {
-  slug: string;
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-  thumbnail?: string;
-  categories?: string[];
-}
 
 interface PostListProps {
   posts: PostData[];

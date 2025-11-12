@@ -5,16 +5,7 @@ import CategoryList from '../category/CategoryList';
 import Pagination from './Pagination';
 import PostList from './PostList';
 import { useSearchParams } from 'next/navigation';
-
-interface PostData {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  date: string;
-  thumbnail?: string;
-  categories?: string[];
-}
+import { PostData } from '@/types/post';
 
 interface Category {
   name: string;
