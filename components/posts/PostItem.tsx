@@ -46,6 +46,9 @@ export default function PostItem({
               src={thumbnail}
               alt={title}
               fill
+              priority
+              loading="eager"
+              sizes="220px"
               style={{ objectFit: 'cover' }}
             />
           )}

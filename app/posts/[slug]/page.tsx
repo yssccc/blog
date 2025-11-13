@@ -68,6 +68,7 @@ export default async function PostPage({
                 alt={data.title}
                 fill
                 className="object-cover rounded-xl"
+                sizes="(max-width: 768px) 100vw, 750px"
                 priority
               />
             </div>

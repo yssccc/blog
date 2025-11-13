@@ -11,13 +11,14 @@ export default function Footer() {
         className="cursor-pointer"
         title="GitHub로 이동"
       >
-        <Image
-          src="/github-mark.svg"
-          alt="GitHub"
-          width={30}
-          height={30}
-          className="opacity-80 hover:opacity-100 transition"
-        />
+        <div className="relative w-[30px] h-[30px]">
+          <Image
+            src="/github-mark.svg"
+            alt="GitHub"
+            fill
+            className="opacity-80 hover:opacity-100 transition"
+          />
+        </div>
       </Link>
       <div className="text-gray-400 text-center text-sm">
         © 2025 YUNSEO All rights reserved.
