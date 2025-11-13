@@ -7,7 +7,7 @@ import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import TOC from '@/components/posts/TOC';
 import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
-import Script from 'next/script';
+import GiscusComments from '@/components/posts/GiscusComments';
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), 'app', 'posts');
@@ -41,7 +41,7 @@ export default async function PostPage({
   return (
     <div className="relative flex justify-center pt-32">
       <div className="flex flex-col gap-50">
-        <article className="prose prose-lg w-full max-w-[750px] px-6">
+        <article className="prose prose-lg max-w-[750px] w-[700px] px-6">
           <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
           <div className="flex items-center mb-6 gap-3">
             <time className="text-gray-500 text-sm">{data.date}</time>
@@ -75,23 +75,7 @@ export default async function PostPage({
             components={components}
           />
         </article>
-        <div className="giscus" />
-        <Script
-          src="https://giscus.app/client.js"
-          data-repo="yssccc/blog"
-          data-repo-id="R_kgDOQSMi_A"
-          data-category="Announcements"
-          data-category-id="DIC_kwDOQSMi_M4Cxu4F"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="preferred_color_scheme"
-          data-lang="ko"
-          crossOrigin="anonymous"
-          async
-        ></Script>
+        <GiscusComments />
       </div>
       <aside
         className="hidden lg:block w-[220px] h-fit"
