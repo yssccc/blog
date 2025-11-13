@@ -7,6 +7,7 @@ import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import TOC from '@/components/posts/TOC';
 import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
+import Script from 'next/script';
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), 'app', 'posts');
@@ -38,41 +39,60 @@ export default async function PostPage({
   };
 
   return (
-    <div className="relative flex justify-center py-32 mb-100">
-      <article className="prose prose-lg w-full max-w-[750px] px-6">
-        <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
-        <div className="flex items-center mb-6 gap-3">
-          <time className="text-gray-500 text-sm">{data.date}</time>
-          {data.categories && (
-            <div className="flex gap-2">
-              {data.categories.map((category: string) => (
-                <span
-                  key={category}
-                  className="px-2 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-xs font-medium rounded-[15px]"
-                >
-                  {category}
-                </span>
-              ))}
+    <div className="relative flex justify-center pt-32">
+      <div className="flex flex-col gap-50">
+        <article className="prose prose-lg w-full max-w-[750px] px-6">
+          <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
+          <div className="flex items-center mb-6 gap-3">
+            <time className="text-gray-500 text-sm">{data.date}</time>
+            {data.categories && (
+              <div className="flex gap-2">
+                {data.categories.map((category: string) => (
+                  <span
+                    key={category}
+                    className="px-2 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-xs font-medium rounded-[15px]"
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          {data.thumbnail && (
+            <div className="relative w-full aspect-5/3 mb-32">
+              <Image
+                src={data.thumbnail}
+                alt={data.title}
+                fill
+                className="object-cover rounded-xl"
+                priority
+              />
             </div>
           )}
-        </div>
-        {data.thumbnail && (
-          <div className="relative w-full aspect-5/3 mb-32">
-            <Image
-              src={data.thumbnail}
-              alt={data.title}
-              fill
-              className="object-cover rounded-xl"
-              priority
-            />
-          </div>
-        )}
-        <MDXRemote
-          source={content}
-          options={mdxOptions}
-          components={components}
-        />
-      </article>
+          <MDXRemote
+            source={content}
+            options={mdxOptions}
+            components={components}
+          />
+        </article>
+        <div className="giscus" />
+        <Script
+          src="https://giscus.app/client.js"
+          data-repo="yssccc/blog"
+          data-repo-id="R_kgDOQSMi_A"
+          data-category="Announcements"
+          data-category-id="DIC_kwDOQSMi_M4Cxu4F"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="ko"
+          crossOrigin="anonymous"
+          async
+        ></Script>
+      </div>
       <aside
         className="hidden lg:block w-[220px] h-fit"
         style={{
