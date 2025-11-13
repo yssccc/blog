@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
 import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
+import ScrollProgress from '@/components/common/ScrollProgress';
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), 'app', 'posts');
@@ -41,6 +42,7 @@ export default async function PostPage({
 
   return (
     <div className="relative flex justify-center py-32">
+      <ScrollProgress />
       <div className="flex flex-col gap-5">
         <article className="prose prose-lg max-w-[750px] w-[700px]">
           <h1 className="text-4xl font-bold mb-2">{data.title}</h1>

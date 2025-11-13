@@ -70,3 +70,7 @@ body {
 .animate-popUp {
   animation: popUp 0.25s ease-out;
 }
+
+html {
+  scroll-behavior: smooth;
+}
