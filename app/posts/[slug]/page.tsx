@@ -8,6 +8,7 @@ import TOC from '@/components/posts/TOC';
 import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
 import GiscusComments from '@/components/posts/GiscusComments';
+import ShareButton from '@/components/posts/ShareButton';
 
 export async function generateStaticParams() {
   const postsDir = path.join(process.cwd(), 'app', 'posts');
@@ -39,9 +40,9 @@ export default async function PostPage({
   };
 
   return (
-    <div className="relative flex justify-center pt-32">
-      <div className="flex flex-col gap-50">
-        <article className="prose prose-lg max-w-[750px] w-[700px] px-6">
+    <div className="relative flex justify-center py-32">
+      <div className="flex flex-col gap-5">
+        <article className="prose prose-lg max-w-[750px] w-[700px]">
           <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
           <div className="flex items-center mb-6 gap-3">
             <time className="text-gray-500 text-sm">{data.date}</time>
@@ -74,7 +75,9 @@ export default async function PostPage({
             options={mdxOptions}
             components={components}
           />
+          <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-30" />
         </article>
+        <ShareButton />
         <GiscusComments />
       </div>
       <aside
