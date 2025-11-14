@@ -21,7 +21,7 @@ export default function CategoryList({
     <div className="flex flex-col gap-1 w-30">
       <Link
         href="/"
-        className={`flex items-center p-1 gap-1 text-sm transition cursor-pointer
+        className={`flex items-center p-1 gap-1 text-sm transition
           ${!currentCategory ? 'text-main font-semibold' : ''}
         `}
       >
@@ -33,7 +33,7 @@ export default function CategoryList({
         <Link
           key={category.name}
           href={`/?category=${encodeURIComponent(category.name)}`}
-          className={`flex items-center p-1 gap-1 text-sm transition cursor-pointer
+          className={`flex items-center p-1 gap-1 text-sm transition
             ${
               currentCategory === category.name ? 'text-main font-semibold' : ''
             }`}

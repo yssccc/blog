@@ -19,7 +19,7 @@ export default function PostItem({
   categories = [],
 }: PostItemProps) {
   return (
-    <Link href={`/posts/${slug}`} className="block group cursor-pointer">
+    <Link href={`/posts/${slug}`}>
       <div className="w-[780px] h-[147px] flex">
         <div className="flex flex-col justify-between flex-1">
           <h2 className="font-medium text-lg max-w-[500px] max-h-[60px] line-clamp-2">
@@ -49,11 +49,11 @@ export default function PostItem({
               priority
               loading="eager"
               sizes="220px"
-              style={{ objectFit: 'cover' }}
+              className="object-cover"
             />
           )}
         </div>
-      </div>{' '}
+      </div>
     </Link>
   );
 }

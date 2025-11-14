@@ -8,7 +8,6 @@ export default function Footer() {
         href="https://github.com/yssccc"
         target="_blank"
         rel="noopener noreferrer"
-        className="cursor-pointer"
         title="GitHub로 이동"
       >
         <div className="relative w-[30px] h-[30px]">
