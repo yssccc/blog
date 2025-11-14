@@ -20,28 +20,9 @@ export default function PostItem({
   categories = [],
 }: PostItemProps) {
   return (
-    <Link href={`/posts/${slug}`}>
-      <div className="w-[780px] h-[147px] flex">
-        <div className="flex flex-col justify-between flex-1">
-          <h2 className="font-medium text-lg max-w-[500px] max-h-[60px] line-clamp-2">
-            {title}
-          </h2>
-          <p className="font-light text-sm max-w-[535px] h-[60px] text-gray-700 overflow-hidden line-clamp-3">
-            {content}
-          </p>
-          <div className="flex gap-2 items-center font-extralight text-sm text-gray-500">
-            <span>{formatDotDate(date)}</span>
-            {categories.map((category) => (
-              <span
-                key={category}
-                className="px-2 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-xs font-medium rounded-[15px]"
-              >
-                {category}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="relative w-[220px] aspect-220/147 rounded-[15px] overflow-hidden">
+    <Link href={`/posts/${slug}`} className="block group">
+      <div className="w-[320px] bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+        <div className="relative w-full h-[260px]">
           {thumbnail && (
             <Image
               src={thumbnail}
@@ -49,10 +30,30 @@ export default function PostItem({
               fill
               priority
               loading="eager"
-              sizes="220px"
-              className="object-cover"
+              sizes="300px"
+              className="object-cover group-hover:scale-105 transition-transform"
             />
           )}
+        </div>
+        <div className="flex flex-col p-5 gap-3 h-[170px]">
+          <h2 className="font-bold text-[18px] leading-snug line-clamp-2">
+            {title}
+          </h2>
+          <p className="text-sm text-gray-600 leading-snug line-clamp-2">
+            {content}
+          </p>
+          <div className="flex items-center gap-2 mt-auto text-[13px] text-gray-500">
+            <span className="opacity-70">{formatDotDate(date)}</span>
+
+            {categories.map((category) => (
+              <span
+                key={category}
+                className="px-2 rounded-full bg-gray-50 text-gray-700 border border-gray-100"
+              >
+                {category}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </Link>

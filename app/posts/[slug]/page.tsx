@@ -79,7 +79,7 @@ export default async function PostPage({
                 {data.categories.map((category: string) => (
                   <span
                     key={category}
-                    className="px-3 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-[13px] font-medium rounded-[15px]"
+                    className="text-[14px] px-2 rounded-full bg-gray-50 text-gray-700 border border-gray-100"
                   >
                     {category}
                   </span>

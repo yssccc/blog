@@ -18,30 +18,41 @@ export default function CategoryList({
   const sortedCategories = [...categories].sort((a, b) => b.count - a.count);
 
   return (
-    <div className="flex flex-col gap-1 w-30">
+    <div className="flex flex-col gap-1 w-40">
       <Link
         href="/"
-        className={`flex items-center p-1 gap-1 text-sm transition
-          ${!currentCategory ? 'text-main font-semibold' : ''}
+        className={`
+          flex justify-between items-center px-2 py-1.5 rounded-md text-sm transition
+          hover:bg-gray-50
+          ${!currentCategory ? 'text-black' : 'text-gray-500'}
         `}
       >
         <span>전체보기</span>
-        <span className="text-gray-400">({totalPostCount})</span>
-      </Link>
-
-      {sortedCategories.map((category) => (
-        <Link
-          key={category.name}
-          href={`/?category=${encodeURIComponent(category.name)}`}
-          className={`flex items-center p-1 gap-1 text-sm transition
-            ${
-              currentCategory === category.name ? 'text-main font-semibold' : ''
-            }`}
+        <span
+          className={`${!currentCategory ? 'text-black' : 'text-gray-400'}`}
         >
-          <span>{category.name}</span>
-          <span className="text-gray-400">({category.count})</span>
-        </Link>
-      ))}
+          ({totalPostCount})
+        </span>
+      </Link>
+      {sortedCategories.map((category) => {
+        const isActive = currentCategory === category.name;
+        return (
+          <Link
+            key={category.name}
+            href={`/?category=${encodeURIComponent(category.name)}`}
+            className={`
+              flex justify-between items-center px-2 py-1.5 rounded-md text-sm transition
+              hover:bg-gray-50
+              ${isActive ? 'text-black' : 'text-gray-500'}
+            `}
+          >
+            <span>{category.name}</span>
+            <span className={`${isActive ? 'text-black' : 'text-gray-400'}`}>
+              ({category.count})
+            </span>
+          </Link>
+        );
+      })}
     </div>
   );
 }
