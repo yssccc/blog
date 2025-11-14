@@ -1,3 +1,4 @@
+import { formatDotDate } from '@/lib/formatDate';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -29,7 +30,7 @@ export default function PostItem({
             {content}
           </p>
           <div className="flex gap-2 items-center font-extralight text-sm text-gray-500">
-            <span>{date}</span>
+            <span>{formatDotDate(date)}</span>
             {categories.map((category) => (
               <span
                 key={category}

@@ -10,6 +10,7 @@ import Callout from '@/components/posts/Callout';
 import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
+import { formatDotDate } from '@/lib/formatDate';
 
 export async function generateMetadata({
   params,
@@ -68,15 +69,17 @@ export default async function PostPage({
       <ScrollProgress />
       <div className="flex flex-col gap-5">
         <article className="prose prose-lg max-w-[750px] w-[700px]">
-          <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
+          <h1 className="text-4xl font-bold mb-7">{data.title}</h1>
           <div className="flex items-center mb-6 gap-3">
-            <time className="text-gray-500 text-sm">{data.date}</time>
+            <time className="text-gray-400 text-[17px]">
+              {formatDotDate(data.date)}
+            </time>
             {data.categories && (
               <div className="flex gap-2">
                 {data.categories.map((category: string) => (
                   <span
                     key={category}
-                    className="px-2 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-xs font-medium rounded-[15px]"
+                    className="px-3 text-main flex items-center justify-center min-w-[30px] min-h-5 bg-gray-100 text-[13px] font-medium rounded-[15px]"
                   >
                     {category}
                   </span>
