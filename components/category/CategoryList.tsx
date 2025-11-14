@@ -1,15 +1,11 @@
 'use client';
 
+import { CategoryData } from '@/types/post';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-interface Category {
-  name: string;
-  count: number;
-}
-
 interface CategoryListProps {
-  categories: Category[];
+  categories: CategoryData[];
   totalPostCount: number;
 }
 

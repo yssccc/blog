@@ -5,16 +5,11 @@ import CategoryList from '../category/CategoryList';
 import Pagination from './Pagination';
 import PostList from './PostList';
 import { useSearchParams } from 'next/navigation';
-import { PostData } from '@/types/post';
-
-interface Category {
-  name: string;
-  count: number;
-}
+import { CategoryData, PostData } from '@/types/post';
 
 interface PostListPageProps {
   posts: PostData[];
-  categories: Category[];
+  categories: CategoryData[];
   totalPostCount: number;
 }
 

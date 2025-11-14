@@ -1,7 +1,7 @@
 'use client';
 
+import { HeadingInfo } from '@/types/post';
 import { useEffect, useState, useRef } from 'react';
-import type { HeadingInfo } from '@/lib/getHeadingsFromMDX';
 
 interface TOCProps {
   headings: HeadingInfo[];

@@ -7,3 +7,14 @@ export interface PostData {
   thumbnail?: string;
   categories?: string[];
 }
+
+export interface CategoryData {
+  name: string;
+  count: number;
+}
+
+export interface HeadingInfo {
+  id: string;
+  text: string;
+  depth: number;
+}
