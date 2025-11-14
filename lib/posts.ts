@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import type { CategoryData, PostData } from '@/types/post';
 
 export function getAllPosts(): PostData[] {
-  const postsDir = path.join(process.cwd(), 'app', 'posts');
+  const postsDir = path.join(process.cwd(), 'content');
   const filenames = fs.readdirSync(postsDir).filter((f) => f.endsWith('.mdx'));
 
   return filenames.map((filename, idx) => {

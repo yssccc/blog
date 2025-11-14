@@ -11,12 +11,36 @@ import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  const postPath = path.join(process.cwd(), 'content', `${slug}.mdx`);
+  const source = await fs.promises.readFile(postPath, 'utf8');
+  const { data } = matter(source);
+
+  return {
+    title: data.title,
+    description: data.description,
+    openGraph: {
+      title: data.title,
+      description: data.description,
+      images: data.thumbnail ? [data.thumbnail] : [],
+    },
+  };
+}
+
 export async function generateStaticParams() {
-  const postsDir = path.join(process.cwd(), 'app', 'posts');
+  const postsDir = path.join(process.cwd(), 'content');
   const filenames = fs.readdirSync(postsDir);
-  return filenames.map((name) => ({
-    slug: name.replace(/\.mdx$/, ''),
-  }));
+  return filenames
+    .filter((name) => name.endsWith('.mdx'))
+    .map((name) => ({
+      slug: name.replace(/\.mdx$/, ''),
+    }));
 }
 
 export default async function PostPage({
@@ -28,8 +52,7 @@ export default async function PostPage({
 
   const postPath = path.join(
     process.cwd(),
-    'app',
-    'posts',
+    'content',
     `${resolvedParams.slug}.mdx`,
   );
 
