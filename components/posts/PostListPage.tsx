@@ -1,10 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import CategoryList from '../category/CategoryList';
 import Pagination from './Pagination';
 import PostList from './PostList';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { CategoryData, PostData } from '@/types/post';
 
 interface PostListPageProps {
@@ -19,8 +19,20 @@ export default function PostListPage({
   totalPostCount,
 }: PostListPageProps) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const currentCategory = searchParams.get('category');
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = Number(searchParams.get('page')) || 1;
+
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (page === 1) {
+      params.delete('page');
+      router.push(`/?${params.toString()}`);
+      return;
+    }
+    params.set('page', page.toString());
+    router.push(`/?${params.toString()}`);
+  };
 
   const filteredPosts = useMemo(() => {
     if (!currentCategory) return posts;
@@ -43,7 +55,7 @@ export default function PostListPage({
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={handlePageChange}
             />
           </div>
         </div>
