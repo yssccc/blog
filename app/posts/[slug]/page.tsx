@@ -65,10 +65,10 @@ export default async function PostPage({
   };
 
   return (
-    <div className="relative flex justify-center py-22">
+    <div className="flex relative justify-center py-22">
       <ScrollProgress />
       <div className="flex flex-col gap-5">
-        <article className="prose prose-lg max-w-[750px] w-[700px]">
+        <article className="prose prose-lg w-full max-w-[750px] min-w-[500px] p-4">
           <h1 className="text-4xl font-bold mb-7">{data.title}</h1>
           <div className="flex items-center mb-6 gap-3">
             <time className="text-gray-400 text-[17px]">
@@ -110,10 +110,10 @@ export default async function PostPage({
         <GiscusComments />
       </div>
       <aside
-        className="hidden lg:block w-[220px] h-fit"
+        className="hidden xl:block h-fit fixed text-[14px] w-[200px] mt-38"
         style={{
           position: 'fixed',
-          left: 'calc(50% + 520px)',
+          left: 'calc(50% + 450px)',
         }}
       >
         <TOC headings={headings} />
