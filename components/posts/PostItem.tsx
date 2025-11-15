@@ -20,9 +20,9 @@ export default function PostItem({
   categories = [],
 }: PostItemProps) {
   return (
-    <Link href={`/posts/${slug}`} className="block group">
-      <div className="w-[320px] bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-        <div className="relative w-full h-[260px]">
+    <Link href={`/posts/${slug}`} className="block w-full min-w-0 h-full group">
+      <div className="flex flex-col h-full rounded-lg overflow-hidden shadow-sm hover:shadow-md transition w-full">
+        <div className="relative w-full aspect-4/3">
           {thumbnail && (
             <Image
               src={thumbnail}
@@ -35,20 +35,20 @@ export default function PostItem({
             />
           )}
         </div>
-        <div className="flex flex-col p-5 gap-3 h-[170px]">
-          <h2 className="font-bold text-[18px] leading-snug line-clamp-2">
+        <div className="flex flex-col flex-1 p-4 min-w-0">
+          <h2 className="font-semibold text-lg line-clamp-2 mb-2 wrap-break-words">
             {title}
           </h2>
-          <p className="text-sm text-gray-600 leading-snug line-clamp-2">
+          <p className="font-light text-sm text-gray-700 line-clamp-2 mb-4 flex-1 wrap-break-words">
             {content}
           </p>
-          <div className="flex items-center gap-2 mt-auto text-[13px] text-gray-500">
+          <div className="flex flex-wrap gap-2 items-center text-sm text-gray-500 min-w-0">
             <span className="opacity-70">{formatDotDate(date)}</span>
 
             {categories.map((category) => (
               <span
                 key={category}
-                className="px-2 rounded-full bg-gray-50 text-gray-700 border border-gray-100"
+                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap"
               >
                 {category}
               </span>

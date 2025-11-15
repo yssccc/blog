@@ -79,7 +79,7 @@ export default async function PostPage({
                 {data.categories.map((category: string) => (
                   <span
                     key={category}
-                    className="text-[14px] px-2 rounded-full bg-gray-50 text-gray-700 border border-gray-100"
+                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap"
                   >
                     {category}
                   </span>
@@ -104,7 +104,7 @@ export default async function PostPage({
             options={mdxOptions}
             components={components}
           />
-          <div className="w-full h-px bg-gray-200 dark:bg-gray-700 my-30" />
+          <div className="w-full h-px bg-gray-200 my-30" />
         </article>
         <ShareButton />
         <GiscusComments />

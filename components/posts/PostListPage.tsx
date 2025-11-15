@@ -35,17 +35,24 @@ export default function PostListPage({
   );
 
   return (
-    <div className="w-full flex py-[70px] justify-center">
-      <div className="w-[1176px] flex justify-between gap-10">
-        <div className="flex flex-col">
+    <div className="max-w-[1200px] mx-auto px-4">
+      <div className="flex gap-10 py-20">
+        <div className="flex-1 min-w-0">
           <PostList posts={pagedPosts} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
+          <div className="mt-8">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
-        <CategoryList categories={categories} totalPostCount={totalPostCount} />
+        <aside className="hidden md:block max-w-[200px] shrink-0">
+          <CategoryList
+            categories={categories}
+            totalPostCount={totalPostCount}
+          />
+        </aside>
       </div>
     </div>
   );
