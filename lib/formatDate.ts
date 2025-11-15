@@ -1,4 +1,5 @@
 export function formatDotDate(date: string): string {
-    if (date.includes(".")) return date;
-    return date.replace(/-/g, ".");
-  }
+  const pureDate = date.split(' ')[0];
+  if (pureDate.includes('.')) return pureDate;
+  return pureDate.replace(/-/g, '.');
+}
