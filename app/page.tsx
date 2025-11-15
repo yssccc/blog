@@ -1,5 +1,6 @@
 import { getAllCategories, getAllPosts } from '@/lib/posts';
 import PostListPage from '@/components/posts/PostListPage';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'YUNSEO 블로그',
@@ -26,10 +27,12 @@ export default function Home() {
   const categories = getAllCategories();
 
   return (
-    <PostListPage
-      posts={posts}
-      categories={categories}
-      totalPostCount={posts.length}
-    />
+    <Suspense fallback={<></>}>
+      <PostListPage
+        posts={posts}
+        categories={categories}
+        totalPostCount={posts.length}
+      />
+    </Suspense>
   );
 }
