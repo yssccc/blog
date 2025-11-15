@@ -25,13 +25,16 @@ export default function PostListPage({
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
+
     if (page === 1) {
       params.delete('page');
-      router.push(`/?${params.toString()}`);
-      return;
+    } else {
+      params.set('page', page.toString());
     }
-    params.set('page', page.toString());
-    router.push(`/?${params.toString()}`);
+
+    const url = `/?${params.toString()}`;
+    router.replace(url);
+    window.location.href = url;
   };
 
   const filteredPosts = useMemo(() => {
