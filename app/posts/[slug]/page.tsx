@@ -65,7 +65,7 @@ export default async function PostPage({
   };
 
   return (
-    <div className="relative flex justify-center py-32">
+    <div className="relative flex justify-center py-22">
       <ScrollProgress />
       <div className="flex flex-col gap-5">
         <article className="prose prose-lg max-w-[750px] w-[700px]">
