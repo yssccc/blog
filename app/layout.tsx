@@ -2,6 +2,12 @@ import Header from '@/components/layout/Header';
 import './globals.css';
 import Footer from '@/components/layout/Footer';
 
+export const metadata = {
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
