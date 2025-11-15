@@ -7,7 +7,7 @@ export function getAllPosts(): PostData[] {
   const postsDir = path.join(process.cwd(), 'content');
   const filenames = fs.readdirSync(postsDir).filter((f) => f.endsWith('.mdx'));
 
-  return filenames.map((filename, idx) => {
+  const posts = filenames.map((filename, idx) => {
     const filePath = path.join(postsDir, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
@@ -21,9 +21,12 @@ export function getAllPosts(): PostData[] {
       thumbnail: data.thumbnail || undefined,
       categories: data.categories || [],
     };
-
     return post;
   });
+
+  return posts.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 }
 
 export function getAllCategories(): CategoryData[] {
