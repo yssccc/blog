@@ -2,13 +2,13 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxOptions } from '@/lib/mdxOptions';
 import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import { getPostBySlug, getAllSlugs } from '@/lib/posts';
-import TOC from '@/components/posts/TOC';
 import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
 import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import { formatDotDate } from '@/lib/formatDate';
+import PostAsideTOC from '@/components/posts/post-detail/PostAsideTOC';
 
 export function generateStaticParams() {
   return getAllSlugs();
@@ -90,15 +90,7 @@ export default async function PostPage({
         <ShareButton />
         <GiscusComments />
       </div>
-      <aside
-        className="hidden xl:block h-fit fixed text-[14px] w-[200px] mt-38"
-        style={{
-          position: 'fixed',
-          left: 'calc(50% + 450px)',
-        }}
-      >
-        <TOC headings={headings} />
-      </aside>
+      <PostAsideTOC headings={headings} />
     </div>
   );
 }
