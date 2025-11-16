@@ -4,7 +4,6 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export const mdxOptions: MDXRemoteProps['options'] = {
   mdxOptions: {
@@ -12,13 +11,6 @@ export const mdxOptions: MDXRemoteProps['options'] = {
     rehypePlugins: [
       [rehypePrettyCode, { theme: 'one-dark-pro', keepBackground: true }],
       rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: 'append',
-          properties: { className: ['anchor-link'] },
-        },
-      ],
     ] as Pluggable[],
   },
 };
