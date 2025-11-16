@@ -2,13 +2,13 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxOptions } from '@/lib/mdxOptions';
 import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import { getPostBySlug, getAllSlugs } from '@/lib/posts';
-import Image from 'next/image';
 import Callout from '@/components/posts/Callout';
 import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import { formatDotDate } from '@/lib/formatDate';
 import PostAsideTOC from '@/components/posts/post-detail/PostAsideTOC';
+import PostThumbnail from '@/components/posts/post-detail/PostThumbnail';
 
 export function generateStaticParams() {
   return getAllSlugs();
@@ -68,18 +68,10 @@ export default async function PostPage({
               </div>
             )}
           </div>
-          {post.frontmatter.thumbnail && (
-            <div className="relative w-full aspect-5/3 mb-32">
-              <Image
-                src={post.frontmatter.thumbnail}
-                alt={post.frontmatter.title}
-                fill
-                className="object-cover rounded-xl"
-                sizes="(max-width: 768px) 100vw, 750px"
-                priority
-              />
-            </div>
-          )}
+          <PostThumbnail
+            thumbnail={post.frontmatter.thumbnail}
+            title={post.frontmatter.title}
+          />
           <MDXRemote
             source={post.content}
             options={mdxOptions}
