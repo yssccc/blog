@@ -38,7 +38,7 @@ export default function SearchModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-start justify-center pt-42"
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-start justify-center pt-22 sm:pt-32"
       onClick={onClose}
     >
       <div
