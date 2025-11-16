@@ -3,10 +3,10 @@ import { getPostBySlug, getAllSlugs } from '@/lib/posts';
 import GiscusComments from '@/components/posts/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
-import { formatDotDate } from '@/lib/formatDate';
 import PostAsideTOC from '@/components/posts/post-detail/PostAsideTOC';
 import PostThumbnail from '@/components/posts/post-detail/PostThumbnail';
 import PostContent from '@/components/posts/post-detail/PostContent';
+import PostHeader from '@/components/posts/post-detail/PostHeader';
 
 export function generateStaticParams() {
   return getAllSlugs();
@@ -45,33 +45,22 @@ export default async function PostPage({
   return (
     <div className="flex relative justify-center py-22">
       <ScrollProgress />
-      <div className="flex flex-col gap-5">
-        <h1 className="text-4xl font-bold mb-7">{post.frontmatter.title}</h1>
-        <div className="flex items-center mb-6 gap-3">
-          <time className="text-gray-400 text-[17px]">
-            {formatDotDate(post.frontmatter.date)}
-          </time>
-          {post.frontmatter.categories && (
-            <div className="flex gap-2">
-              {post.frontmatter.categories.map((category: string) => (
-                <span
-                  key={category}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium whitespace-nowrap"
-                >
-                  {category}
-                </span>
-              ))}
-            </div>
-          )}
+      <article className="prose prose-lg w-full max-w-[750px] min-w-[500px] p-4">
+        <div className="flex flex-col">
+          <PostHeader
+            title={post.frontmatter.title}
+            date={post.frontmatter.date}
+            categories={post.frontmatter.categories}
+          />
+          <PostThumbnail
+            thumbnail={post.frontmatter.thumbnail}
+            title={post.frontmatter.title}
+          />
+          <PostContent content={post.content} />
+          <ShareButton />
+          <GiscusComments />
         </div>
-        <PostThumbnail
-          thumbnail={post.frontmatter.thumbnail}
-          title={post.frontmatter.title}
-        />
-        <PostContent content={post.content} />
-        <ShareButton />
-        <GiscusComments />
-      </div>
+      </article>
       <PostAsideTOC headings={headings} />
     </div>
   );

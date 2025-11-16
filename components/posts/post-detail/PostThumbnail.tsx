@@ -12,7 +12,7 @@ export default function PostThumbnail({
   if (!thumbnail) return null;
 
   return (
-    <div className="relative w-full aspect-5/3 mb-32">
+    <div className="relative w-full aspect-5/3">
       <Image
         src={thumbnail}
         alt={title}
