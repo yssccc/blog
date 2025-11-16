@@ -1,6 +1,6 @@
 import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import { getPostBySlug, getAllSlugs } from '@/lib/posts';
-import GiscusComments from '@/components/posts/GiscusComments';
+import GiscusComments from '@/components/posts/post-detail/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
 import ScrollProgress from '@/components/common/ScrollProgress';
 import PostAsideTOC from '@/components/posts/post-detail/PostAsideTOC';

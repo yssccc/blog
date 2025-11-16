@@ -18,7 +18,7 @@ export default function PostContent({ content }: PostContentProps) {
         options={mdxOptions}
         components={components}
       />
-      <div className="w-full h-px bg-gray-200 my-30" />
+      <div className="w-full h-px bg-gray-200 mt-30" />
     </div>
   );
 }
