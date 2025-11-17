@@ -106,3 +106,13 @@ html {
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 #f1f1f1;
 }
+
+.prose blockquote {
+  border: none;
+  background: #f5f5f5;
+  padding: 0.3rem 2rem 0.3rem 2rem;
+  border-radius: 0.5rem;
+  font-style: normal;
+  quotes: none;
+  font-weight: 400;
+}
