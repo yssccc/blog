@@ -7,6 +7,7 @@ import PostAsideTOC from '@/components/posts/post-detail/PostAsideTOC';
 import PostThumbnail from '@/components/posts/post-detail/PostThumbnail';
 import PostContent from '@/components/posts/post-detail/PostContent';
 import PostHeader from '@/components/posts/post-detail/PostHeader';
+import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
   return getAllSlugs();
@@ -19,6 +20,8 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
+
+  if (!post) return notFound();
 
   return {
     title: post.frontmatter.title,
@@ -39,6 +42,8 @@ export default async function PostPage({
   const { slug } = await params;
 
   const post = getPostBySlug(slug);
+
+  if (!post) return notFound();
 
   const headings = await getHeadingsFromMDX(post.content);
 

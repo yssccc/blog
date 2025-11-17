@@ -11,6 +11,11 @@ function getMdxFiles(): string[] {
 
 export function getPostBySlug(slug: string) {
   const fullPath = path.join(CONTENT_DIR, `${slug}.mdx`);
+
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+
   const file = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(file);
 
