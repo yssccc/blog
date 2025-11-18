@@ -1,22 +1,44 @@
 'use client';
 
-import { HeadingInfo } from '@/types/post';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 
-interface PostAsideTOCProps {
-  headings: HeadingInfo[];
+interface HeadingInfo {
+  id: string;
+  text: string;
+  depth: number;
 }
 
-export default function PostAsideTOC({ headings }: PostAsideTOCProps) {
+export default function PostAsideTOC() {
+  const [headings, setHeadings] = useState<HeadingInfo[]>([]);
   const [activeId, setActiveId] = useState('');
-  const observer = useRef<IntersectionObserver | null>(null);
+  const pathname = usePathname();
+
+  const extractHeadings = useCallback(() => {
+    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
+
+    if (headingElements.length === 0) return;
+
+    const extracted = headingElements.map((el) => ({
+      id: el.id,
+      text: el.textContent || '',
+      depth: Number(el.tagName[1]),
+    }));
+
+    setHeadings(extracted);
+  }, []);
 
   useEffect(() => {
-    const headingElements = Array.from(document.querySelectorAll('h1, h2, h3'));
+    const timer = setTimeout(extractHeadings, 0);
+    return () => clearTimeout(timer);
+  }, [pathname, extractHeadings]);
 
-    if (observer.current) observer.current.disconnect();
+  useEffect(() => {
+    if (headings.length === 0) return;
 
-    observer.current = new IntersectionObserver(
+    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
+
+    const observer = new IntersectionObserver(
       (entries) => {
         const visibleHeadings = entries
           .filter((e) => e.isIntersecting)
@@ -36,10 +58,12 @@ export default function PostAsideTOC({ headings }: PostAsideTOCProps) {
       },
     );
 
-    headingElements.forEach((el) => observer.current?.observe(el));
+    headingElements.forEach((el) => observer.observe(el));
 
-    return () => observer.current?.disconnect();
+    return () => observer.disconnect();
   }, [headings]);
+
+  if (headings.length === 0) return null;
 
   return (
     <aside

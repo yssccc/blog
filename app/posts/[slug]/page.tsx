@@ -1,4 +1,3 @@
-import { getHeadingsFromMDX } from '@/lib/getHeadingsFromMDX';
 import { getPostBySlug, getAllSlugs } from '@/lib/posts';
 import GiscusComments from '@/components/posts/post-detail/GiscusComments';
 import ShareButton from '@/components/posts/ShareButton';
@@ -45,8 +44,6 @@ export default async function PostPage({
 
   if (!post) return notFound();
 
-  const headings = await getHeadingsFromMDX(post.content);
-
   return (
     <div className="flex relative justify-center pt-10 pb-22">
       <ScrollProgress />
@@ -66,7 +63,7 @@ export default async function PostPage({
           <GiscusComments />
         </div>
       </article>
-      <PostAsideTOC headings={headings} />
+      <PostAsideTOC />
     </div>
   );
 }

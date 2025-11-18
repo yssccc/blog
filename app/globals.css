@@ -143,3 +143,9 @@ html {
   font-size: inherit;
   font-weight: inherit;
 }
+
+.prose img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

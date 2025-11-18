@@ -1,0 +1,91 @@
+---
+title: 'try...catch란?'
+date: '2025-10-25'
+thumbnail: '/thumbnails/image.png'
+categories: ['JavaScript']
+description: '에러 핸들링을 위한 try...catch문에 대해 다룹니다.'
+---
+
+프로그램을 작성하다보면 실수, 예상치 못한 사용자 입력, 잘못된 서버 응답 등의 다양한 예외 상황이 있습니다.
+자바스크립트에서는 이런 에러가 생기면 바로 실행이 중단되고 콘솔에 에러 메시지가 뜹니다. 이런 상황을 안정적으로 처리할 수 있는 도구가 바로 `try...catch` 문입니다.
+
+## try...catch의 기본 구조
+
+`try...catch`는 에러 발생 시 프로그램이 비정상 종료되는 것을 방지하고, 예외를 처리하는 코드를 실행하도록 만들어줍니다.
+
+```jsx
+try {
+  // 예외가 발생할 가능성이 있는 코드
+} catch (error) {
+  // 예외가 발생했을 때 실행되는 코드
+} finally {
+  // 예외 발생 여부와 관계없이 항상 실행되는 코드 (선택 사항)
+}
+```
+
+## 작동 흐름 이해하기
+
+1. try 블록 안의 코드가 실행됩니다.
+2. 실행 도중 에러가 발생하면, 그 순간 catch 블록으로 제어가 즉시 이동합니다.
+3. 에러가 없으면 catch 블록은 건너뛰고 다음으로 진행됩니다.
+4. finally 블록은 예외 발생 여부와 상관없이 항상 실행됩니다. 리소스 해제나 정리 작업에 자주 사용됩니다.
+
+> **finally는 리소스 정리를 위해 활용합니다.**
+> 파일 핸들러 닫기, 메모리 해제, DB 연결 종료 같은 작업을 finally에 두면 예외 여부와 상관없이 안전하게 처리할 수 있습니다.
+
+## Error 객체 알아보기
+
+`catch` 블록에서는 예외에 관한 정보를 담은 **Error** 객체를 활용할 수 있습니다.
+
+`error.name` → 에러의 종류 (예: `TypeError`, `ReferenceError`)
+`error.message` → 에러 메시지 내용입니다
+
+## Throw 연산자
+
+`throw` 연산자는 에러를 생성합니다.
+이론적으로는 숫자, 문자열 같은 원시형 자료를 포함한 어떤 것이든 에러 객체(error object)로 사용할 수 있지만, 내장 에러와의 호환을 위해 되도록 에러 객체에 `name`과 `message` 프로퍼티를 넣어주는 것을 권장합니다.
+
+## 실사용 예제
+
+파일 입출력, 네트워크 요청, 사용자 입력 등 다양한 상황에서 유용하게 쓰입니다.
+아래는 사용자 입력을 받아서 빈 값일 때 오류를 던지는 예제입니다.
+
+```jsx
+try {
+  const userInput = prompt('값을 입력하세요:');
+
+  if (userInput === '') {
+    throw new Error('입력값이 비어있습니다');
+  }
+  console.log(`입력된 값: ${userInput}`);
+} catch (error) {
+  console.error(error.message);
+} finally {
+  console.log('입력 처리 완료');
+}
+```
+
+## ⚠️ 주의할 점
+
+1. 유효한 코드에서만 작동
+   `try...catch`는 문법적으로 올바른 코드 안에서만 실행됩니다.
+   문법 에러(SyntaxError)처럼 코드 자체를 해석할 수 없는 경우는 잡을 수 없습니다.
+   이런 에러는 “파싱 단계(parse-time)”에서 발생하여 프로그램이 실행되기 전 중단되기 때문입니다.
+2. 동기 코드에서만 작동
+   `try...catch`는 동기적으로 실행되는 코드에서만 예외를 포착할 수 있습니다.
+   다음 예시처럼 `setTimeout` 같은 비동기 콜백 내부 예외를 잡으려면, 반드시 콜백 안에 `try...catch`를 작성해야 합니다.
+
+```jsx
+setTimeout(() => {
+  try {
+    throw new Error('비동기 예외');
+  } catch (error) {
+    console.log('잡았다!', error.message);
+  }
+}, 1000);
+```
+
+## 참고 자료
+
+- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/try...catch
+- https://ko.javascript.info/try-catch#ref-1789
