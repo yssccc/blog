@@ -116,3 +116,30 @@ html {
   quotes: none;
   font-weight: 400;
 }
+
+.prose :not(pre) > code {
+  background-color: #f3f4f6;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  color: #f55200;
+  font-size: 0.9em;
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: '';
+}
+
+.dark .prose :not(pre) > code {
+  background-color: #374151;
+  color: #fca5a5;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
