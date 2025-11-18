@@ -42,7 +42,7 @@ export default function PostListPage({
     return posts.filter((post) => post.categories?.includes(currentCategory));
   }, [posts, currentCategory]);
 
-  const postsPerPage = 9;
+  const postsPerPage = 21;
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const pagedPosts = filteredPosts.slice(
     (currentPage - 1) * postsPerPage,
@@ -54,13 +54,15 @@ export default function PostListPage({
       <div className="flex gap-10 py-20">
         <div className="flex-1 min-w-0">
           <PostList posts={pagedPosts} />
-          <div className="mt-8">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
+          {totalPages > 1 && (
+            <div className="mt-8">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )}
         </div>
         <aside className="hidden md:block max-w-[200px] shrink-0">
           <CategoryList
