@@ -31,10 +31,14 @@ export default function SearchModal({
   }, []);
 
   const filtered = debouncedKeyword
-    ? posts.filter((p) =>
-        p.title.toLowerCase().includes(debouncedKeyword.toLowerCase()),
-      )
-    : [];
+  ? posts.filter((p) => {
+      const lower = debouncedKeyword.toLowerCase();
+      return (
+        p.title.toLowerCase().includes(lower) ||
+        p.content.toLowerCase().includes(lower) 
+      );
+    })
+  : [];
 
   return (
     <div
