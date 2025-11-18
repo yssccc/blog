@@ -1,0 +1,102 @@
+---
+title: 'Next.js 블로그 댓글 기능 추가하기 (giscus)'
+date: '2025-11-16'
+thumbnail: '/thumbnails/blog.png'
+categories: ['Next.js']
+description: 'Next.js 블로그에 Giscus로 댓글 기능을 추가한 내용을 다룹니다.'
+---
+
+<Callout>
+  전체 코드는 [Github](https://github.com/yssccc/blog)에서 확인하실 수 있습니다.
+</Callout>
+
+## Repository Discussions 활성화
+
+Giscus는 Github Discussions를 기반으로 하기 때문에 Discussions를 활성화해야합니다.
+저는 댓글용 repository를 따로 만들지 않고 블로그 repository를 사용하였습니다.
+
+> 깃허브의 settings→Features→Discussions를 활성화해줍니다.
+
+![giscussetting](/next-blog-2-giscus/giscus1.png)
+
+## **Giscus Github App 설치**
+
+https://github.com/apps/giscus 에 접속하여 블로그 repository에 설치합니다.
+
+## Giscus설정하기
+
+https://giscus.app/ 에 접속합니다.
+
+제가 한 설정값은 아래와 같습니다.
+
+> 언어 - 한국어
+> 저장소 - blog레포지토리 주소
+> 페이지 - Discussions 연결 - Discussion 제목이 페이지 `경로`를 포함
+> Discussion카테고리 - Announcements
+> 기능 - 메인 포스트에 반응 남기기
+> 테마-Preferred color scheme
+
+모두 선택하고나면 아래와 같은 코드가 생성됩니다.
+
+```
+<script src="https://giscus.app/client.js"
+        data-repo="yssccc/blog"
+        data-repo-id="R_kgDOQSMi_A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOQSMi_M4Cxu4F"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="ko"
+        crossorigin="anonymous"
+        async>
+</script>
+```
+
+## 적용하기
+
+`@giscus/react` 방식을 사용하였습니다.
+(script방식으로 하였을 때 DOM과 React 렌더링 타이밍이 맞지 않아 댓글창이 보이지 않는 오류가 있었습니다.)
+
+[공식 문서](https://github.com/giscus/giscus-component)를 참고한 코드입니다.
+
+### ✔ 설치 명령어
+
+```bash
+npm i @giscus/react
+```
+
+댓글을 위한 컴포넌트를 따로 만들어주었습니다.
+
+```tsx
+// components/posts/post-detail/GiscusComments.ts
+'use client';
+
+import Giscus from '@giscus/react';
+
+export default function GiscusComments() {
+  return (
+    <Giscus
+      repo="yssccc/blog"
+      repoId="R_kgDOQSMi_A"
+      category="Announcements"
+      categoryId="DIC_kwDOQSMi_M4Cxu4F"
+      mapping="pathname"
+      strict="0"
+      reactionsEnabled="1"
+      emitMetadata="0"
+      inputPosition="bottom"
+      theme="preferred_color_scheme"
+      lang="ko"
+      loading="lazy"
+    />
+  );
+}
+```
+
+상세 페이지에 컴포넌트를 추가하면 댓글 기능이 완성됩니다.
+
+![giscusresult](/next-blog-2-giscus/giscus2.png)

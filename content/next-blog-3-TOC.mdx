@@ -1,0 +1,122 @@
+---
+title: 'Next.js 블로그 TOC(목차) 기능 추가하기'
+date: '2025-11-18'
+thumbnail: '/thumbnails/blog.png'
+categories: ['Next.js']
+description: 'rehype-slug, IntersectionObserver을 이용한 목차 기능에 대한 내용입니다.'
+---
+
+<Callout>
+  전체 코드는 [Github](https://github.com/yssccc/blog)에서 확인하실 수 있습니다.
+</Callout>
+
+글의 구조를 빠르게 파악할 수 있는 **목차(Table of Contents)** 기능 구현 과정을 정리해보려고 합니다.
+
+## 구현 목표
+
+1. **MDX 본문에서 Heading을 가져오기**
+2. **클릭하면 해당 섹션으로 스크롤 이동**
+3. **IntersectionObserver로 현재 보고 있는 Heading 자동 하이라이트 표시**
+4. **depth(h2/h3)에 따른 들여쓰기 적용**
+
+## MDX 본문에서 Heading을 가져오기
+
+페이지가 렌더된 후 다음과 같이 h2/h3 요소를 모두 가져옵니다.
+
+```tsx
+// components/posts/post-detail/PostAsideTOC.tsx
+const headingElements = Array.from(document.querySelectorAll('h2, h3'));
+
+const extracted = headingElements.map((el) => ({
+  id: el.id,
+  text: el.textContent || '',
+  depth: Number(el.tagName[1]),
+}));
+
+setHeadings(extracted);
+```
+
+`rehype-slug`가 모든 heading에 자동으로 id를 부여해줍니다.
+
+## 클릭하면 해당 섹션으로 스크롤 이동
+
+각 목차 항목(a 태그)에 `href="#heading-id"`를 추가하면 브라우저 기본 스크롤을 이용할 수 있습니다.
+
+```tsx
+<a href={`#${h.id}`}>{h.text}</a>
+```
+
+## IntersectionObserver로 현재 보고 있는 Heading 자동 하이라이트 표시
+
+화면에 보이는 heading들 중 **가장 위에 가까운 요소의 id를 active 상태**로 설정합니다.
+
+```tsx
+const observer = new IntersectionObserver(
+  (entries) => {
+    const visibleHeadings = entries
+      .filter((e) => e.isIntersecting)
+      .sort(
+        (a, b) =>
+          a.target.getBoundingClientRect().top -
+          b.target.getBoundingClientRect().top,
+      );
+
+    if (visibleHeadings.length > 0) {
+      setActiveId((visibleHeadings[0].target as HTMLElement).id);
+    }
+  },
+  {
+    rootMargin: '0px 0px -70% 0px',
+    threshold: 0.1,
+  },
+);
+```
+
+- rootMargin: '0px 0px -70% 0px' → 화면 위쪽 30% 안에 들어온 heading만 active로 선택됩니다.
+- threshold: 0.1 → 요소의 10%가 화면에 들어오면 intersecting으로 판단합니다.
+
+`IntersectionObserver`가 업데이트한 `activeId`는 목차 UI에서 해당 heading을 강조하는 데 사용됩니다.
+
+> **IntersectionObserver**는 요소가 화면에 들어오거나 벗어나는 시점을 감지하는 브라우저 API로, 스크롤 이벤트 없이도 현재 화면에 보이는 heading을 정확하고 부드럽게 파악할 수 있습니다.
+
+```tsx {7}
+{
+  headings.map((h) => (
+    <li
+      key={h.id}
+      style={{ paddingLeft: `${(h.depth - 2) * 16}px` }}
+      className={
+        activeId === h.id ? 'text-main font-semibold' : 'text-gray-500'
+      }
+    >
+      <a href={`#${h.id}`} className="hover:text-main transition-colors">
+        {h.text}
+      </a>
+    </li>
+  ));
+}
+```
+
+## depth에 따라 들여쓰기 적용
+
+```tsx
+style={{ paddingLeft: `${(h.depth - 2) * 16}px` }}
+```
+
+- h2 → depth 2 → 들여쓰기 없음
+- h3 → depth 3 → 16px 들여쓰기
+
+아래처럼 깔끔한 트리 구조의 목차가 됩니다.
+
+![TOC](/next-blog-3-TOC/1.png)
+
+## 스크롤 부드럽게 이동
+
+클릭해서 해당 섹션으로 스크롤 이동할 때 부드럽게 이동하기 위한 설정이 필요합니다.
+`globals.css`에 아래 코드를 추가했습니다.
+
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
