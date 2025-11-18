@@ -43,7 +43,7 @@ export default function PostAsideTOC({ headings }: PostAsideTOCProps) {
 
   return (
     <aside
-      className="hidden xl:block h-fit text-[14px] w-[200px] mt-38"
+      className="hidden xl:block h-fit text-[14px] w-[200px] mt-43"
       style={{
         position: 'fixed',
         left: 'calc(50% + 450px)',

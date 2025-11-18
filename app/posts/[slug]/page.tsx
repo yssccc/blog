@@ -48,7 +48,7 @@ export default async function PostPage({
   const headings = await getHeadingsFromMDX(post.content);
 
   return (
-    <div className="flex relative justify-center py-22">
+    <div className="flex relative justify-center pt-10 pb-22">
       <ScrollProgress />
       <article className="prose prose-lg w-full max-w-[750px] min-w-[500px] p-4">
         <div className="flex flex-col">

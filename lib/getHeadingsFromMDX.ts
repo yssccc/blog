@@ -9,6 +9,7 @@ export async function getHeadingsFromMDX(
 ): Promise<HeadingInfo[]> {
   const tree = unified().use(remarkParse).parse(content) as Root;
   const headings: HeadingInfo[] = [];
+  const idCounts = new Map<string, number>();
 
   visit(tree, 'heading', (node) => {
     const heading = node as Heading;
@@ -17,10 +18,18 @@ export async function getHeadingsFromMDX(
       .map((child) => child.value)
       .join(' ');
 
-    const id = text
+    let id = text
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^\w\-가-힣]/g, '');
+
+    if (idCounts.has(id)) {
+      const count = idCounts.get(id)! + 1;
+      idCounts.set(id, count);
+      id = `${id}-${count}`;
+    } else {
+      idCounts.set(id, 1);
+    }
 
     headings.push({ id, text, depth: heading.depth });
   });

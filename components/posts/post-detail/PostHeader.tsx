@@ -12,8 +12,8 @@ export default function PostHeader({
   categories,
 }: PostHeaderProps) {
   return (
-    <header>
-      <h1 className="text-4xl font-bold mb-7">{title}</h1>
+    <header className="text-center flex flex-col items-center mb-10">
+      <h1 className="text-4xl font-bold mb-5">{title}</h1>
       <div className="flex items-center gap-3">
         <time className="text-gray-400 text-[17px]">{formatDotDate(date)}</time>
 
