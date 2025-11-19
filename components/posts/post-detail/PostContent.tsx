@@ -1,6 +1,6 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxOptions } from '@/lib/mdxOptions';
-import Callout from '@/components/posts/Callout';
+import Callout from '@/components/mdx/Callout';
 
 interface PostContentProps {
   content: string;
