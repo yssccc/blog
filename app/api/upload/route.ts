@@ -18,6 +18,7 @@ export async function POST(req: Request) {
   const owner = process.env.GITHUB_OWNER!;
   const repo = process.env.GITHUB_REPO!;
   const token = process.env.GITHUB_TOKEN!;
+  const branch = process.env.GITHUB_BRANCH ?? 'main';
 
   const path = `content/${filename}.mdx`;
   const githubResponse = await fetch(
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         message: `docs: upload ${filename}.mdx`,
         content: Buffer.from(mdx, 'utf-8').toString('base64'),
+        branch,
       }),
     },
   );

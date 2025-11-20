@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     const owner = process.env.GITHUB_REPO_OWNER!;
     const repo = process.env.GITHUB_REPO_NAME!;
     const token = process.env.GITHUB_TOKEN!;
+    const branch = process.env.GITHUB_BRANCH ?? 'main';
 
     const getFileInfo = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/content/${filename}.mdx`,
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           message: `Delete post: ${filename}`,
           sha: fileData.sha,
+          branch,
         }),
       },
     );

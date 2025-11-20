@@ -6,6 +6,7 @@ export async function POST(req: Request) {
   const owner = process.env.GITHUB_OWNER!;
   const repo = process.env.GITHUB_REPO!;
   const token = process.env.GITHUB_TOKEN!;
+  const branch = process.env.GITHUB_BRANCH ?? 'main';
 
   const path = `content/${filename}.mdx`;
 
@@ -40,6 +41,7 @@ export async function POST(req: Request) {
         message: `docs: ${filename} 수정`,
         content: contentBase64,
         sha,
+        branch,
       }),
     },
   );
