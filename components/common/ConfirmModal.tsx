@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 interface ConfirmModalProps {
   open: boolean;
-  title?: string;
+  title: string;
   message?: string;
   onConfirm: () => void;
   onCancel: () => void;
@@ -12,8 +12,8 @@ interface ConfirmModalProps {
 
 const ConfirmModal: FC<ConfirmModalProps> = ({
   open,
-  title = '게시글을 업로드할까요?',
-  message = 'GitHub 저장소에 게시글이 커밋됩니다.',
+  title,
+  message,
   onConfirm,
   onCancel,
 }) => {
@@ -32,9 +32,11 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
           {title}
         </h2>
-        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-          {message}
-        </p>
+        {message && (
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+            {message}
+          </p>
+        )}
         <div className="flex justify-end gap-3 mt-5">
           <button
             onClick={onCancel}
@@ -57,7 +59,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
               transition
             "
           >
-            업로드하기
+            확인
           </button>
         </div>
       </div>

@@ -64,7 +64,7 @@ ${content}
   const saveEdit = async () => {
     const fullMDX = buildMDX();
 
-    const res = await fetch('/api/upload', {
+    const res = await fetch('/api/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -75,6 +75,8 @@ ${content}
 
     if (res.ok) {
       alert('수정 완료!');
+      setModalOpen(false);
+      window.location.reload();
     } else {
       const { error } = await res.json();
       alert('수정 실패: ' + error);

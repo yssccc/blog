@@ -4,6 +4,7 @@ import ConfirmModal from '@/components/common/ConfirmModal';
 import { useState, type ChangeEvent } from 'react';
 
 export default function WritePage() {
+  const [slug, setSlug] = useState('');
   const [title, setTitle] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [categories, setCategories] = useState('');
@@ -12,7 +13,7 @@ export default function WritePage() {
   const [content, setContent] = useState('');
   const [previewId, setPreviewId] = useState('');
 
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const buildMDX = (): string => {
     return `---
@@ -51,11 +52,10 @@ ${content}
 
     const fullMDX = buildMDX();
 
-    const filename = title
+    const filename = slug
+      .trim()
       .toLowerCase()
-      .replace(/[^a-z0-9-]/g, '-')
-      .replace(/--+/g, '-')
-      .replace(/^-+|-+$/g, '');
+      .replace(/[^a-z0-9-]/g, '');
 
     const res = await fetch('/api/upload', {
       method: 'POST',
@@ -68,6 +68,8 @@ ${content}
 
     if (res.ok) {
       alert('GitHub 업로드 완료!');
+      setModalOpen(false);
+      window.location.reload();
     } else {
       const { error } = await res.json();
       alert('업로드 실패: ' + error);
@@ -80,13 +82,21 @@ ${content}
   return (
     <>
       <ConfirmModal
-        open={uploadModalOpen}
+        open={modalOpen}
         title="게시글을 업로드할까요?"
+        message="GitHub 저장소로 커밋됩니다."
         onConfirm={uploadPost}
-        onCancel={() => setUploadModalOpen(false)}
+        onCancel={() => setModalOpen(false)}
       />
       <div className="flex gap-6 p-10 min-h-screen bg-gray-50">
         <section className="flex-1 flex flex-col gap-6 p-8 bg-white shadow-sm rounded-2xl">
+          <input
+            type="text"
+            placeholder="slug (파일명, 영문/숫자/하이픈만)"
+            className={baseInput}
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+          />
           <input
             type="text"
             placeholder="제목을 입력하세요"
@@ -146,7 +156,7 @@ ${content}
               미리보기
             </button>
             <button
-              onClick={() => setUploadModalOpen(true)}
+              onClick={() => setModalOpen(true)}
               className="px-5 py-3 rounded-lg bg-gray-800 text-white font-medium shadow hover:bg-gray-700 transition"
             >
               업로드하기

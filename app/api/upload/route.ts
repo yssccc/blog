@@ -8,6 +8,13 @@ interface UploadRequest {
 export async function POST(req: Request) {
   const { filename, mdx } = (await req.json()) as UploadRequest;
 
+  if (!filename || !mdx) {
+    return NextResponse.json(
+      { error: 'filename 또는 mdx 누락' },
+      { status: 400 },
+    );
+  }
+
   const owner = process.env.GITHUB_OWNER!;
   const repo = process.env.GITHUB_REPO!;
   const token = process.env.GITHUB_TOKEN!;

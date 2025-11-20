@@ -2,6 +2,7 @@ import { getAllPosts } from '@/lib/posts';
 import type { PostData } from '@/types/post';
 import Link from 'next/link';
 import Image from 'next/image';
+import DeleteButton from '../../components/DeleteButton';
 
 export default function AdminDashboardPage() {
   const posts: PostData[] = getAllPosts();
@@ -58,12 +59,15 @@ export default function AdminDashboardPage() {
                     )}
                   </div>
                 </div>
-                <Link
-                  href={`/admin/edit/${post.slug}`}
-                  className="h-8 px-3 rounded-md bg-neutral-900 text-white text-xs font-medium flex items-center justify-center hover:bg-neutral-700 transition"
-                >
-                  수정
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    href={`/admin/edit/${post.slug}`}
+                    className="h-8 px-3 rounded-md bg-neutral-900 text-white text-xs font-medium flex items-center justify-center hover:bg-neutral-700 transition"
+                  >
+                    수정
+                  </Link>
+                  <DeleteButton slug={post.slug} />
+                </div>
               </div>
               {post.content && (
                 <p className="mt-3 text-sm text-gray-600 line-clamp-2">
