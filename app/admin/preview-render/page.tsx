@@ -4,6 +4,7 @@ import { getPreview } from '@/lib/preview-store';
 import matter from 'gray-matter';
 import PostHeader from '@/components/posts/post-detail/PostHeader';
 import PostThumbnail from '@/components/posts/post-detail/PostThumbnail';
+import { mdxOptions } from '@/lib/mdxOptions';
 
 export default async function PreviewPage({
   searchParams,
@@ -31,8 +32,11 @@ export default async function PreviewPage({
           thumbnail={frontmatter.thumbnail}
           title={frontmatter.title}
         />
-        zja
-        <MDXRemote source={content} components={components} />
+        <MDXRemote
+          source={content}
+          components={components}
+          options={mdxOptions}
+        />
       </div>
     </article>
   );
