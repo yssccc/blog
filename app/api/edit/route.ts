@@ -11,10 +11,11 @@ export async function POST(req: Request) {
   const path = `content/${filename}.mdx`;
 
   const fileInfo = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
       },
     },
   );
@@ -36,6 +37,7 @@ export async function POST(req: Request) {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
       },
       body: JSON.stringify({
         message: `docs: ${filename} 수정`,

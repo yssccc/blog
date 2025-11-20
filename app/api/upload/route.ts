@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server';
 
-interface UploadRequest {
-  filename: string;
-  mdx: string;
-}
-
 export async function POST(req: Request) {
-  const { filename, mdx } = (await req.json()) as UploadRequest;
+  const { filename, mdx } = await req.json();
 
   if (!filename || !mdx) {
     return NextResponse.json(
@@ -21,24 +16,38 @@ export async function POST(req: Request) {
   const branch = process.env.GITHUB_BRANCH ?? 'main';
 
   const path = `content/${filename}.mdx`;
-  const githubResponse = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: `token ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: `docs: upload ${filename}.mdx`,
-        content: Buffer.from(mdx, 'utf-8').toString('base64'),
-        branch,
-      }),
-    },
-  );
+  const infoUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
 
-  if (!githubResponse.ok) {
-    const msg = await githubResponse.text();
+  const getFile = await fetch(infoUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+    },
+  });
+
+  const sha = getFile.ok ? (await getFile.json()).sha : undefined;
+
+  const contentBase64 = Buffer.from(mdx, 'utf-8').toString('base64');
+
+  const uploadReq = await fetch(infoUrl, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/vnd.github+json',
+    },
+    body: JSON.stringify({
+      message: sha
+        ? `docs: ${filename}.mdx 업데이트`
+        : `docs: ${filename}.mdx 업로드`,
+      content: contentBase64,
+      branch,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+
+  if (!uploadReq.ok) {
+    const msg = await uploadReq.text();
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 
