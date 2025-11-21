@@ -156,13 +156,14 @@ ${content}
           <div className="flex gap-3 pt-4">
             <button
               onClick={updatePreview}
-              className="px-5 py-3 rounded-lg bg-main text-white font-medium shadow hover:bg-main/90 transition"
+              className="h-11 px-5 rounded-xl border border-gray-300 bg-white text-gray-800 font-medium hover:bg-gray-50 hover:border-gray-400 transition-all"
             >
               미리보기
             </button>
+
             <button
               onClick={() => setModalOpen(true)}
-              className="px-5 py-3 rounded-lg bg-gray-800 text-white font-medium shadow hover:bg-gray-700 transition"
+              className="h-11 px-5 rounded-xl bg-main text-white font-medium shadow-sm hover:bg-main/90 transition-all"
             >
               업로드하기
             </button>
