@@ -6,44 +6,41 @@ import DeleteButton from '../../components/DeleteButton';
 export default function PostList({ posts }: { posts: PostData[] }) {
   return (
     <div className="max-w-[1200px] mx-auto px-4 mt-10">
-      <div className="mb-10 flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900">
-          글 목록
-        </h1>
+      <div className="mb-8 flex justify-end">
         <Link
           href="/admin/write"
-          className="px-4 py-2 rounded-lg bg-main text-white text-sm font-medium shadow-sm hover:opacity-90 transition"
+          className="px-4 h-10 flex items-center gap-2 rounded-xl border border-gray-300 text-gray-800 text-sm font-medium bg-white hover:bg-gray-50 hover:border-gray-400 shadow-xs transition-all"
         >
-          + 새 글 작성
+          <span className="text-lg leading-none">＋</span>새 글 작성
         </Link>
       </div>
       <div className="space-y-4">
         {posts.map((post) => (
           <div
             key={post.slug}
-            className="flex gap-5 items-stretch rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow"
+            className="relative group rounded-xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition overflow-hidden"
           >
-            {post.thumbnail && (
-              <div className="relative w-[150px] aspect-video overflow-hidden rounded-l-xl bg-gray-100">
-                <Image
-                  src={post.thumbnail}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-
-            <div className="flex-1 flex flex-col justify-between py-4 pr-4">
-              <div className="flex items-start justify-between gap-3">
+            <Link
+              href={`/posts/${post.slug}`}
+              className="flex gap-5 items-stretch"
+            >
+              {post.thumbnail && (
+                <div className="relative w-[150px] aspect-video overflow-hidden bg-gray-100">
+                  <Image
+                    src={post.thumbnail}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform"
+                  />
+                </div>
+              )}
+              <div className="flex-1 flex flex-col justify-between py-4 pr-4">
                 <div>
                   <h2 className="text-lg font-semibold text-neutral-900 leading-snug">
                     {post.title}
                   </h2>
-
                   <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-gray-500">
                     <span>{post.date}</span>
-
                     {Array.isArray(post.categories) &&
                       post.categories.length > 0 && (
                         <div className="flex flex-wrap gap-2">
@@ -59,23 +56,24 @@ export default function PostList({ posts }: { posts: PostData[] }) {
                       )}
                   </div>
                 </div>
-
-                <div className="flex gap-2">
-                  <Link
-                    href={`/admin/edit/${post.slug}`}
-                    className="h-8 px-3 rounded-md bg-neutral-900 text-white text-xs font-medium flex items-center justify-center hover:bg-neutral-700 transition"
-                  >
-                    수정
-                  </Link>
-                  <DeleteButton slug={post.slug} />
-                </div>
+                {post.content && (
+                  <p className="mt-3 text-sm text-gray-600 line-clamp-2">
+                    {post.content}
+                  </p>
+                )}
               </div>
-
-              {post.content && (
-                <p className="mt-3 text-sm text-gray-600 line-clamp-2">
-                  {post.content}
-                </p>
-              )}
+            </Link>
+            <div
+              className="absolute top-3 right-3 flex gap-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Link
+                href={`/admin/edit/${post.slug}`}
+                className="h-7 px-3 rounded-md border border-gray-300 text-gray-700 text-xs flex items-center justify-center hover:bg-gray-100 transition"
+              >
+                수정
+              </Link>
+              <DeleteButton slug={post.slug} />
             </div>
           </div>
         ))}

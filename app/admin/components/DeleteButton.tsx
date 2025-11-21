@@ -45,8 +45,7 @@ export default function DeleteButton({ slug }: Props) {
 
       <button
         onClick={() => setModalOpen(true)}
-        className="h-8 px-3 rounded-md bg-gray-600 text-white text-xs font-medium 
-                   flex items-center justify-center hover:bg-gray-500 transition"
+        className="h-7 px-3 rounded-md border border-red-300 text-red-600 text-xs flex items-center justify-center hover:bg-red-50 transition"
       >
         삭제
       </button>
