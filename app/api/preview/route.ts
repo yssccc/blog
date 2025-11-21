@@ -1,14 +1,10 @@
-import { NextResponse } from "next/server";
-import { savePreview } from "@/lib/preview-store";
-
-interface PreviewRequest {
-  mdx: string;
-}
+import { NextResponse } from 'next/server';
+import { savePreview } from '@/lib/preview-store';
 
 export async function POST(req: Request) {
-  const { mdx } = (await req.json()) as PreviewRequest;
+  const { mdx } = await req.json();
 
-  const id = await savePreview(mdx);
+  const { id, url } = await savePreview(mdx);
 
-  return NextResponse.json({ id });
+  return NextResponse.json({ id, url });
 }
