@@ -60,7 +60,7 @@ ${content}
     });
 
     const data = await res.json();
-    setPreviewId(data.id);
+    setPreviewId(data.url);
   };
 
   const { setPendingToast } = useToast();
@@ -178,7 +178,7 @@ ${content}
         <section className="flex-1 bg-white shadow-sm rounded-2xl overflow-hidden">
           {previewId ? (
             <iframe
-              src={`/admin/preview-render?id=${previewId}`}
+              src={`/admin/preview-render?url=${encodeURIComponent(previewId)}`}
               className="w-full h-full border-none"
             />
           ) : (
