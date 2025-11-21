@@ -3,12 +3,17 @@
 import { useState } from 'react';
 import ConfirmModal from '@/components/common/ConfirmModal';
 
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/useToast';
+
 interface Props {
   slug: string;
 }
 
 export default function DeleteButton({ slug }: Props) {
   const [modalOpen, setModalOpen] = useState(false);
+  const { setPendingToast } = useToast();
+  const router = useRouter();
 
   const handleDelete = async () => {
     const res = await fetch('/api/delete', {
@@ -18,9 +23,10 @@ export default function DeleteButton({ slug }: Props) {
     });
 
     if (res.ok) {
-      alert('삭제 완료!');
       setModalOpen(false);
-      window.location.reload();
+      setPendingToast('삭제 완료!');
+      router.push('/admin/dashboard');
+      return;
     } else {
       const { error } = await res.json();
       alert('삭제 실패: ' + error);

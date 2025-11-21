@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
     });
 
     if (res.ok) {
-      window.location.href = '/admin/write';
+      window.location.href = '/admin/dashboard';
     } else {
       alert('비밀번호가 틀렸습니다.');
     }

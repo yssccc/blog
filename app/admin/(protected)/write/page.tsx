@@ -1,6 +1,8 @@
 'use client';
 
 import ConfirmModal from '@/components/common/ConfirmModal';
+import { useToast } from '@/hooks/useToast';
+import { useRouter } from 'next/navigation';
 import { useState, type ChangeEvent } from 'react';
 
 export default function WritePage() {
@@ -14,6 +16,9 @@ export default function WritePage() {
   const [previewId, setPreviewId] = useState('');
 
   const [modalOpen, setModalOpen] = useState(false);
+
+  const { setPendingToast } = useToast();
+  const router = useRouter();
 
   const buildMDX = (): string => {
     return `---
@@ -67,9 +72,9 @@ ${content}
     });
 
     if (res.ok) {
-      alert('GitHub 업로드 완료!');
-      setModalOpen(false);
-      window.location.reload();
+      setPendingToast('업로드 완료!');
+      router.push('/admin/dashboard');
+      return;
     } else {
       const { error } = await res.json();
       alert('업로드 실패: ' + error);

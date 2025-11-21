@@ -1,6 +1,8 @@
 'use client';
 
 import ConfirmModal from '@/components/common/ConfirmModal';
+import { useToast } from '@/hooks/useToast';
+import { useRouter } from 'next/navigation';
 import { useState, type ChangeEvent } from 'react';
 
 interface EditPageProps {
@@ -61,6 +63,9 @@ ${content}
     setPreviewId(data.id);
   };
 
+  const { setPendingToast } = useToast();
+  const router = useRouter();
+
   const saveEdit = async () => {
     const fullMDX = buildMDX();
 
@@ -74,9 +79,9 @@ ${content}
     });
 
     if (res.ok) {
-      alert('수정 완료!');
-      setModalOpen(false);
-      window.location.reload();
+      setPendingToast('글 수정 완료!');
+      router.push('/admin/dashboard');
+      return;
     } else {
       const { error } = await res.json();
       alert('수정 실패: ' + error);

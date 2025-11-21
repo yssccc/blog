@@ -1,15 +1,14 @@
 'use client';
 
 import { Share2 } from 'lucide-react';
-import { useState } from 'react';
-import Toast from '@/components/common/Toast';
+import { useToastContext } from '../toast/ToastProvider';
 
 export default function ShareButton() {
-  const [toast, setToast] = useState(false);
+  const { showToast } = useToastContext();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href);
-    setToast(true);
+    showToast("링크가 복사되었습니다!");
   };
 
   return (
@@ -23,12 +22,6 @@ export default function ShareButton() {
         <Share2 size={16} />
         공유
       </button>
-
-      <Toast
-        message="링크가 복사되었습니다!"
-        visible={toast}
-        onClose={() => setToast(false)}
-      />
     </>
   );
 }

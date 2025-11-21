@@ -1,6 +1,8 @@
 import Header from '@/components/layout/Header';
 import './globals.css';
 import Footer from '@/components/layout/Footer';
+import Toast from '@/components/toast/Toast';
+import ToastProvider from '@/components/toast/ToastProvider';
 
 export const metadata = {
   icons: {
@@ -16,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <ToastProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer /> <Toast />
+        </ToastProvider>
       </body>
     </html>
   );
