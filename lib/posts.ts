@@ -70,3 +70,7 @@ export function getAllSlugs() {
     slug: file.replace(/\.mdx$/, ''),
   }));
 }
+
+export function getSitemapPostList() {
+  return getMdxFiles().map((file) => file.replace(/\.mdx$/, ''));
+}
