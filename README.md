@@ -2,7 +2,7 @@
 
 블로그는 https://www.yssccc.com/ 에서 직접 확인하실 수 있습니다.
 
-![blog screenshot](./blog.png)
+<img width="249" height="245" alt="blog-thumbnail" src="https://github.com/user-attachments/assets/03a9af66-c04c-4938-ab3b-ad7c6397d336" />
 
 ## 1. 프로젝트 소개
 
