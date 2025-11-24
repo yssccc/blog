@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js 블로그
 
-## Getting Started
+블로그는 https://www.yssccc.com/ 에서 직접 확인하실 수 있습니다.
 
-First, run the development server:
+![blog screenshot](./blog.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 1. 프로젝트 소개
+
+Next.js 기반으로 개발한 정적 블로그입니다.
+
+학습한 내용을 기록하고 공유하기 위해 개발했으며, 블로그 글은 `/content` 폴더의 `MDX` 파일로 관리합니다.
+
+또한 별도의 관리자 페이지를 통해 글을 추가·수정·삭제할 수 있으며, 작성한 글은 깃허브 저장소에 바로 커밋되어 자동 배포가 이루어집니다. 이를 통해 블로그 콘텐츠를 코드 수정 없이 웹에서 직접 관리할 수 있습니다.
+
+## 2. 폴더 구조
+
+```jsx
+.
+├── app                  # 라우트 & 페이지 구조
+│   ├── admin            # 관리자 페이지 (로그인/업로드/프리뷰)
+│   ├── api              # API 엔드포인트
+│   ├── posts            # [slug] 기반 포스트 상세
+│   └── ...              # globals.css, layout.tsx 등
+│
+├── components           # 재사용 UI 컴포넌트
+├── content              # MDX 포스트
+├── hooks                # 커스텀 훅
+├── lib                  # 서버/데이터 유틸
+├── public               # 이미지, 아이콘 등
+└── types                # TS 타입
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 3. 기술 스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Content:** MDX
+- **Comments:** Giscus
+- **Deployment:** Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## **4. 주요 기능 (Features)**
 
-## Learn More
+### **4-1. 블로그 기능**
 
-To learn more about Next.js, take a look at the following resources:
+- MDX 기반 포스트 관리
+- 카테고리 자동 생성 / 필터링
+- 페이지네이션(한 페이지당 21개)
+- 포스트 상세 페이지
+- 인용문 커스텀
+- 자동 목차 생성 (클릭 시 스크롤 이동 및 현재 위치 하이라이트)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **4-2. 관리자(Admin) 기능**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 관리자 로그인 (쿠키 인증)
+- 포스트 작성 / 수정 / 삭제
+- 미리보기 렌더링
 
-## Deploy on Vercel
+### **4-3. 검색 기능**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 검색 모달 (제목 + 본문 검색)
+- 디바운스 기반 성능 최적화
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **4-4. UI / UX 기능**
+
+- 반응형 UI
+- 스크롤 Progress Bar
+- 공유 기능(URL 복사)
+- 댓글 기능(Giscus 연동)
+
+### **4-5. SEO & 메타**
+
+- OG 태그 자동 생성
+- sitemap.xml 자동 생성
+- robots.txt 설정
+- 정적 페이지 기반 SEO 최적화
+
+## **5. 설치 및 실행**
+
+```bash
+git clone https://github.com/yssccc/blog.git
+cd blog
+
+# 의존성 설치
+npm install
+
+npm run dev
+# → http://localhost:3000 에서 앱이 실행됩니다.
+```
+
+### **빌드 및 프리뷰**
+
+```bash
+npm run build
+npm run start
+```
