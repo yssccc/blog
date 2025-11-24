@@ -31,14 +31,14 @@ export default function SearchModal({
   }, []);
 
   const filtered = debouncedKeyword
-  ? posts.filter((p) => {
-      const lower = debouncedKeyword.toLowerCase();
-      return (
-        p.title.toLowerCase().includes(lower) ||
-        p.content.toLowerCase().includes(lower) 
-      );
-    })
-  : [];
+    ? posts.filter((p) => {
+        const lower = debouncedKeyword.toLowerCase();
+        return (
+          p.title.toLowerCase().includes(lower) ||
+          p.content.toLowerCase().includes(lower)
+        );
+      })
+    : [];
 
   return (
     <div
@@ -71,7 +71,7 @@ export default function SearchModal({
         <input
           autoFocus
           type="text"
-          placeholder="검색어를 입력하세요"
+          placeholder="제목 또는 내용을 검색하세요"
           className="
             w-full
             h-[50px]
